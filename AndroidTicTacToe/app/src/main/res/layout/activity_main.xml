@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#373737"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#242424"
+        android:padding="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Tic Tac Toe Game"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23000002" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#242424"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#EFB136"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/humanWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Human: "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#aabbca"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/ties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Ties: "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#309593"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/androidWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Android: "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:background="#242424"
+        android:padding="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <!-- Primera fila de 3 botones -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/one"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/two"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/three"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <!-- Segunda fila de 3 botones -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/four"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/five"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/six"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <!-- Tercera fila de 3 botones -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/seven"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/eight"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/nine"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold"/>
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/newGame"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="66dp"
+        android:layout_weight="1"
+        android:background="#aabbca"
+        android:text="New Game"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/turn" />
+
+    <TextView
+        android:id="@+id/turn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="18dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Holaaaaaaa"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/newGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
