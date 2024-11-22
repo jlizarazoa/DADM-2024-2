@@ -20,7 +20,15 @@ private var loses = 0
 private var ties = 0
 private var activeGame = true
 
-private val size = 9
+enum class DifficultyLevel {
+    Easy,
+    Harder,
+    Expert
+}
+
+private var mDifficultyLevel = DifficultyLevel.Easy
+
+private val size = 8
 private lateinit var buttons: Array<Button>
 @SuppressLint("StaticFieldLeak")
 private lateinit var turn: TextView
@@ -111,9 +119,41 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    fun getDifficultyLevel(): DifficultyLevel
+    {
+        return mDifficultyLevel
+    }
+
+    fun setDifficultyLevel(difficultyLevel: DifficultyLevel) {
+        mDifficultyLevel = difficultyLevel
+    }
+
     fun getComputerMove() {
+        when (mDifficultyLevel) {
+            DifficultyLevel.Easy -> easyLevel()
+            DifficultyLevel.Harder -> intermediateLevel()
+            DifficultyLevel.Expert -> expertLevel()
+        }
+    }
+
+    fun expertLevel()
+    {
+
+    }
+
+    fun easyLevel()
+    {
+        var move: Int
+        do {
+            move = Random.nextInt(1, size)
+        } while (buttons[move].text == human || buttons[move].text == android)
+        setMove(android, move)
+    }
+
+    fun intermediateLevel()
+    {
         // First, try to win
-        for (i in 0..8) {
+        for (i in 0..size) {
             if (buttons[i].text == "") {
                 setMove(android, i)
                 if (checkForWinner() == 3) {
@@ -124,7 +164,7 @@ class MainActivity : ComponentActivity() {
         }
 
         // Second, block player's winning move
-        for (i in 0..8) {
+        for (i in 0..size) {
             if (buttons[i].text == "") {
                 buttons[i].text = human
                 if (checkForWinner() == 2) {
