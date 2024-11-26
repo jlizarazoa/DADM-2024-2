@@ -52,7 +52,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Human: "
+                android:text="Human: 0"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -73,7 +73,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Ties: "
+                android:text="Ties: 0"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -94,7 +94,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Android: "
+                android:text="Android: 0"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -106,14 +106,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:background="#242424"
         android:padding="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/turn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/difficultyText">
 
         <!-- Primera fila de 3 botones -->
         <TableRow
@@ -130,7 +133,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/two"
@@ -141,7 +144,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/three"
@@ -152,7 +155,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <!-- Segunda fila de 3 botones -->
@@ -170,7 +173,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/five"
@@ -181,7 +184,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/six"
@@ -192,7 +195,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </TableRow>
 
         <!-- Tercera fila de 3 botones -->
@@ -210,7 +213,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/eight"
@@ -221,7 +224,7 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/nine"
@@ -232,45 +235,97 @@
                 android:background="@drawable/button"
                 android:textColor="#192a32"
                 android:textSize="40sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </TableRow>
     </TableLayout>
-
-    <Button
-        android:id="@+id/newGame"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="66dp"
-        android:layout_weight="1"
-        android:background="#aabbca"
-        android:text="New Game"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif-condensed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/turn" />
 
     <TextView
         android:id="@+id/turn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="53dp"
-        android:layout_marginBottom="18dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:padding="8dp"
         android:textColor="#FFFFFF"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Holaaaaaaa"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/newGame"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/turn">
+
+        <Button
+            android:id="@+id/newGame"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#aabbca"
+            android:fontFamily="sans-serif-condensed"
+            android:padding="12dp"
+            android:text="Restart"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/icons_restart"/>
+
+        <Button
+            android:id="@+id/difficulty"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#aabbca"
+            android:fontFamily="sans-serif-condensed"
+            android:padding="12dp"
+            android:text="Level"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/icons_level"/>
+
+        <Button
+            android:id="@+id/quit"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#aabbca"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Quit"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:drawableStart="@drawable/icons_exit"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/difficultyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="183dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Difficulty: Easy"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

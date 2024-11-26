@@ -1,11 +1,13 @@
 package com.example.androidtictactoe
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Button
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import kotlin.random.Random
@@ -40,6 +42,7 @@ private lateinit var humanWins: TextView
 private lateinit var androidWins: TextView
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,7 +59,12 @@ class MainActivity : ComponentActivity() {
             findViewById<Button>(R.id.nine)
         )
 
+        setDifficultyLevel(DifficultyLevel.Easy)
+
+        val difficulty = findViewById<Button>(R.id.difficulty)
+        val quit = findViewById<Button>(R.id.quit)
         val newGame = findViewById<Button>(R.id.newGame)
+        val difficultyText = findViewById<TextView>(R.id.difficultyText)
         humanWins = findViewById<TextView>(R.id.humanWins)
         androidWins = findViewById<TextView>(R.id.androidWins)
         tiesText = findViewById<TextView>(R.id.ties)
@@ -68,7 +76,52 @@ class MainActivity : ComponentActivity() {
             clearBoard()
         }
 
-        turn.text = "It's your turn"
+        quit.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Quit Game")
+            builder.setMessage("Are you sure you want to quit?")
+            builder.setPositiveButton("Yes") { _, _ ->
+                finish()
+            }
+            builder.setNegativeButton("No", null)
+            builder.show()
+        }
+
+        difficulty.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.popup_component, null)
+            val radioGroup = dialogView.findViewById<RadioGroup>(R.id.difficultyRadioGroup)
+
+            // Marcar el nivel actual
+            when (mDifficultyLevel) {
+                DifficultyLevel.Easy -> radioGroup.check(R.id.easyRadio)
+                DifficultyLevel.Harder -> radioGroup.check(R.id.harderRadio)
+                DifficultyLevel.Expert -> radioGroup.check(R.id.expertRadio)
+            }
+
+            val builder = AlertDialog.Builder(this)
+            builder.setView(dialogView)
+            builder.setPositiveButton("Select") { _, _ ->
+                mDifficultyLevel = when (radioGroup.checkedRadioButtonId) {
+                    R.id.easyRadio -> DifficultyLevel.Easy
+                    R.id.harderRadio -> DifficultyLevel.Harder
+                    R.id.expertRadio -> DifficultyLevel.Expert
+                    else -> DifficultyLevel.Easy
+                }
+                difficultyText.text = "Difficulty: ${
+                    when (mDifficultyLevel) {
+                        DifficultyLevel.Easy -> "Easy"
+                        DifficultyLevel.Harder -> "Harder"
+                        DifficultyLevel.Expert -> "Expert"
+                    }
+                }"
+                clearBoard()
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.show()
+        }
+
+
+        turn.text = "It's your turn!"
 
         buttons.forEachIndexed { index, button ->
             button.text = ""
@@ -136,9 +189,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun expertLevel()
-    {
-
+    fun expertLevel() {
+        val (_, move) = minimax(buttons, 0, true)
+        if (move != null) {
+            setMove(android, move)
+        }
     }
 
     fun easyLevel()
@@ -152,7 +207,6 @@ class MainActivity : ComponentActivity() {
 
     fun intermediateLevel()
     {
-        // First, try to win
         for (i in 0..size) {
             if (buttons[i].text == "") {
                 setMove(android, i)
@@ -163,7 +217,6 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // Second, block player's winning move
         for (i in 0..size) {
             if (buttons[i].text == "") {
                 buttons[i].text = human
@@ -176,13 +229,11 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // Try to take center if available
         if (buttons[4].text == "") {
             setMove(android, 4)
             return
         }
 
-        // Take a random available corner
         val corners = listOf(0, 2, 6, 8)
         val availableCorners = corners.filter { buttons[it].text == "" }
         if (availableCorners.isNotEmpty()) {
@@ -191,7 +242,6 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        // Take any available space
         val availableSpaces = buttons.indices.filter { buttons[it].text == "" }
         if (availableSpaces.isNotEmpty()) {
             val move = availableSpaces.random()
@@ -249,6 +299,51 @@ class MainActivity : ComponentActivity() {
         humanWins.text = "Human: $wins"
         androidWins.text = "Android: $loses"
         tiesText.text = "Ties: $ties"
+    }
+
+    fun minimax(board: Array<Button>, depth: Int, isMaximizing: Boolean): Pair<Int, Int?> {
+        val humanScore = -1
+        val androidScore = 1
+        val tieScore = 0
+
+        val winner = checkForWinner()
+        if (winner == 2) return Pair(humanScore, null)  // Humano gana
+        if (winner == 3) return Pair(androidScore, null)  // Android gana
+        if (board.all { it.text != "" }) return Pair(tieScore, null)  // Empate
+
+        if (isMaximizing) {
+            var bestScore = Int.MIN_VALUE
+            var bestMove: Int? = null
+
+            for (i in board.indices) {
+                if (board[i].text == "") {
+                    board[i].text = android
+                    val (score, _) = minimax(board, depth + 1, false)
+                    board[i].text = ""
+                    if (score > bestScore) {
+                        bestScore = score
+                        bestMove = i
+                    }
+                }
+            }
+            return Pair(bestScore, bestMove)
+        } else {
+            var bestScore = Int.MAX_VALUE
+            var bestMove: Int? = null
+
+            for (i in board.indices) {
+                if (board[i].text == "") {
+                    board[i].text = human
+                    val (score, _) = minimax(board, depth + 1, true)
+                    board[i].text = ""
+                    if (score < bestScore) {
+                        bestScore = score
+                        bestMove = i
+                    }
+                }
+            }
+            return Pair(bestScore, bestMove)
+        }
     }
 
 }

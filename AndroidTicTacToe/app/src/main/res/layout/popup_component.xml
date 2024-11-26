@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Difficulty"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/difficultyRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/easyRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Easy (Random Moves)"
+            android:buttonTint="#4CAF50"/>
+
+        <RadioButton
+            android:id="@+id/harderRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Harder (Strategic Moves)"
+            android:buttonTint="#FF9800"/>
+
+        <RadioButton
+            android:id="@+id/expertRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Expert (Advanced Strategy)"
+            android:buttonTint="#F44336"/>
+    </RadioGroup>
+</LinearLayout>
