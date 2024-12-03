@@ -3,6 +3,7 @@ package com.example.androidtictactoe
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
 import kotlin.random.Random
 
 private var current_player = "X"
@@ -70,6 +72,8 @@ class MainActivity : ComponentActivity() {
         tiesText = findViewById<TextView>(R.id.ties)
         turn = findViewById<TextView>(R.id.turn)
 
+        val mediaPlayer = MediaPlayer.create(this, R.raw.tapsound)
+
         updateScores()
 
         newGame.setOnClickListener {
@@ -126,6 +130,7 @@ class MainActivity : ComponentActivity() {
         buttons.forEachIndexed { index, button ->
             button.text = ""
             button.setOnClickListener {
+                mediaPlayer.start()
                 if (activeGame && button.text == "") {
                     setMove(human, index)
                     val result = checkForWinner()
@@ -152,6 +157,8 @@ class MainActivity : ComponentActivity() {
     fun clearBoard() {
         buttons.forEach { button ->
             button.text = ""
+            button.setTextColor(Color.BLACK)
+            button.background = ContextCompat.getDrawable(this, R.drawable.button)
         }
         turn.text = "It's your turn!"
         current_player = human
@@ -161,13 +168,15 @@ class MainActivity : ComponentActivity() {
     fun setMove(player: String, location: Int) {
         if (buttons[location].text == "") {
             buttons[location].text = player
-            buttons[location].setTextColor(
-                when (player) {
-                    human -> Color.parseColor("#aabbca")
-                    android -> Color.parseColor("#efb136")
-                    else -> Color.BLACK
-                }
-            )
+
+            buttons[location].setTextColor(Color.TRANSPARENT)
+
+            buttons[location].background = when (player) {
+                human -> ContextCompat.getDrawable(this, R.drawable.xbutton)
+                android -> ContextCompat.getDrawable(this, R.drawable.obutton)
+                else -> ContextCompat.getDrawable(this, R.drawable.button)
+            }
+
             current_player = if (player == human) android else human
         }
     }
@@ -214,6 +223,7 @@ class MainActivity : ComponentActivity() {
                     return
                 }
                 buttons[i].text = ""
+                buttons[i].background = ContextCompat.getDrawable(this, R.drawable.button)
             }
         }
 
@@ -226,6 +236,7 @@ class MainActivity : ComponentActivity() {
                     return
                 }
                 buttons[i].text = ""
+                buttons[i].background = ContextCompat.getDrawable(this, R.drawable.button)
             }
         }
 
@@ -276,6 +287,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun handleGameEnd(result: Int) {
+        val winPlayer = MediaPlayer.create(this, R.raw.winsound)
+        val losePlayer = MediaPlayer.create(this, R.raw.losesound)
         when (result) {
             1 -> {
                 turn.text = "It's a tie!"
@@ -283,10 +296,12 @@ class MainActivity : ComponentActivity() {
             }
             2 -> {
                 turn.text = "You won!"
+                winPlayer.start()
                 wins++
             }
             3 -> {
                 turn.text = "You lost!"
+                losePlayer.start()
                 loses++
             }
         }
