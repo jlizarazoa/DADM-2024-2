@@ -2,6 +2,9 @@ package com.example.androidtictactoe
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -31,6 +34,12 @@ enum class DifficultyLevel {
 }
 
 private var mDifficultyLevel = DifficultyLevel.Easy
+private const val PREFERENCES_NAME = "TicTacToePrefs"
+private const val KEY_WINS = "wins"
+private const val KEY_LOSES = "loses"
+private const val KEY_TIES = "ties"
+private const val KEY_DIFFICULTY = "difficulty"
+private const val KEY_BOARD_STATE = "board_state"
 
 private val size = 8
 private lateinit var buttons: Array<Button>
@@ -42,13 +51,32 @@ private lateinit var tiesText: TextView
 private lateinit var humanWins: TextView
 @SuppressLint("StaticFieldLeak")
 private lateinit var androidWins: TextView
+@SuppressLint("StaticFieldLeak")
+private lateinit var difficultyText: TextView
 
 class MainActivity : ComponentActivity() {
+    private lateinit var sharedPreferences: SharedPreferences
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        sharedPreferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_main_landscape)
+        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_main)
+        }
+
+        initializeUI()
+        loadGameData()
+
+    }
+
+    @SuppressLint("SetTextI18n", "MissingInflatedId")
+    private fun initializeUI() {
         buttons = arrayOf(
             findViewById<Button>(R.id.one),
             findViewById<Button>(R.id.two),
@@ -66,7 +94,8 @@ class MainActivity : ComponentActivity() {
         val difficulty = findViewById<Button>(R.id.difficulty)
         val quit = findViewById<Button>(R.id.quit)
         val newGame = findViewById<Button>(R.id.newGame)
-        val difficultyText = findViewById<TextView>(R.id.difficultyText)
+
+        difficultyText = findViewById<TextView>(R.id.difficultyText)
         humanWins = findViewById<TextView>(R.id.humanWins)
         androidWins = findViewById<TextView>(R.id.androidWins)
         tiesText = findViewById<TextView>(R.id.ties)
@@ -77,7 +106,19 @@ class MainActivity : ComponentActivity() {
         updateScores()
 
         newGame.setOnClickListener {
-            clearBoard()
+            val dialogView = layoutInflater.inflate(R.layout.clear_popup_component, null)
+            val radioGroup = dialogView.findViewById<RadioGroup>(R.id.clearRadioGroup)
+
+            val builder = AlertDialog.Builder(this)
+            builder.setView(dialogView)
+            builder.setPositiveButton("Select") { _, _ ->
+                when (radioGroup.checkedRadioButtonId) {
+                    R.id.clearRadio -> clearHistory()
+                    R.id.restartRadio -> clearBoard()
+                }
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.show()
         }
 
         quit.setOnClickListener {
@@ -154,7 +195,92 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun clearBoard() {
+    private fun clearHistory() {
+        wins = 0
+        loses = 0
+        ties = 0
+        mDifficultyLevel = DifficultyLevel.Easy
+        buttons.forEachIndexed { _, button ->
+            button.text = ""
+            button.background = ContextCompat.getDrawable(this, R.drawable.button)
+        }
+        saveGameData()
+        loadGameData()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun loadGameData() {
+        wins = sharedPreferences.getInt(KEY_WINS, 0)
+        loses = sharedPreferences.getInt(KEY_LOSES, 0)
+        ties = sharedPreferences.getInt(KEY_TIES, 0)
+        mDifficultyLevel = DifficultyLevel.valueOf(sharedPreferences.getString(KEY_DIFFICULTY, DifficultyLevel.Easy.name)!!)
+
+        updateScores()
+        setDifficultyLevel(mDifficultyLevel)
+        difficultyText.text = "Difficulty: ${
+            when (mDifficultyLevel) {
+                DifficultyLevel.Easy -> "Easy"
+                DifficultyLevel.Harder -> "Harder"
+                DifficultyLevel.Expert -> "Expert"
+            }
+        }"
+        restoreBoardState()
+    }
+
+    private fun saveGameData() {
+        val editor = sharedPreferences.edit()
+        editor.putInt(KEY_WINS, wins)
+        editor.putInt(KEY_LOSES, loses)
+        editor.putInt(KEY_TIES, ties)
+        editor.putString(KEY_DIFFICULTY, mDifficultyLevel.name)
+        val boardState = buttons.joinToString(",") { it.text.toString() }
+        editor.putString(KEY_BOARD_STATE, boardState)
+        editor.apply()
+        saveBoardState()
+    }
+
+    private fun saveBoardState() {
+        val boardStateBuilder = StringBuilder()
+        buttons.forEachIndexed { index, button ->
+            val buttonText = button.text.toString()
+            val backgroundResourceName = when (buttonText) {
+                human -> "xbutton"
+                android -> "obutton"
+                else -> "button"
+            }
+
+            boardStateBuilder.append("$buttonText,$backgroundResourceName")
+
+            if (index < buttons.size - 1) {
+                boardStateBuilder.append("|")
+            }
+        }
+        sharedPreferences.edit().putString(KEY_BOARD_STATE, boardStateBuilder.toString()).apply()
+    }
+
+
+    private fun restoreBoardState() {
+        val boardStateString = sharedPreferences.getString(KEY_BOARD_STATE, null)
+        boardStateString?.let { stateStr ->
+            val buttonStates = stateStr.split("|")
+            if (buttonStates.size == buttons.size) {
+                buttons.forEachIndexed { index, button ->
+                    val (buttonText, backgroundResourceName) = buttonStates[index].split(",")
+
+                    button.text = buttonText
+                    button.setTextColor(Color.TRANSPARENT)
+
+                    button.background = when (backgroundResourceName) {
+                        "xbutton" -> ContextCompat.getDrawable(this, R.drawable.xbutton)
+                        "obutton" -> ContextCompat.getDrawable(this, R.drawable.obutton)
+                        else -> ContextCompat.getDrawable(this, R.drawable.button)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun clearBoard() {
         buttons.forEach { button ->
             button.text = ""
             button.setTextColor(Color.BLACK)
@@ -163,6 +289,31 @@ class MainActivity : ComponentActivity() {
         turn.text = "It's your turn!"
         current_player = human
         activeGame = true
+        saveGameData()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveGameData()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        saveGameData()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        saveGameData()
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_main_landscape) // Layout para horizontal
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_main) // Layout para vertical
+        }
+
+        initializeUI()
+        loadGameData()
     }
 
     fun setMove(player: String, location: Int) {
@@ -186,6 +337,7 @@ class MainActivity : ComponentActivity() {
         return mDifficultyLevel
     }
 
+    @SuppressLint("SetTextI18n")
     fun setDifficultyLevel(difficultyLevel: DifficultyLevel) {
         mDifficultyLevel = difficultyLevel
     }
@@ -198,14 +350,14 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun expertLevel() {
+    private fun expertLevel() {
         val (_, move) = minimax(buttons, 0, true)
         if (move != null) {
             setMove(android, move)
         }
     }
 
-    fun easyLevel()
+    private fun easyLevel()
     {
         var move: Int
         do {
@@ -214,7 +366,7 @@ class MainActivity : ComponentActivity() {
         setMove(android, move)
     }
 
-    fun intermediateLevel()
+    private fun intermediateLevel()
     {
         for (i in 0..size) {
             if (buttons[i].text == "") {
@@ -260,7 +412,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun checkForWinner(): Int {
+    private fun checkForWinner(): Int {
         for (i in 0..6 step 3) {
             if (buttons[i].text != "" &&
                 buttons[i].text == buttons[i+1].text &&
@@ -316,7 +468,7 @@ class MainActivity : ComponentActivity() {
         tiesText.text = "Ties: $ties"
     }
 
-    fun minimax(board: Array<Button>, depth: Int, isMaximizing: Boolean): Pair<Int, Int?> {
+    private fun minimax(board: Array<Button>, depth: Int, isMaximizing: Boolean): Pair<Int, Int?> {
         val humanScore = -1
         val androidScore = 1
         val tieScore = 0

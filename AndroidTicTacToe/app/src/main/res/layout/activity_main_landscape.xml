@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#373737">
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#242424"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="16dp"
+        android:text="Tic Tac Toe Game"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="188dp"
+        android:layout_height="348dp"
+        android:background="#373737"
+        android:orientation="vertical"
+        android:padding="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tableLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#EFB136"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/humanWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Human: 0"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#aabbca"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/ties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Ties: 0"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#309593"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/androidWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Android: 0"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:background="#242424"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <!-- Primera fila de 3 botones -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/one"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/two"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/three"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <!-- Segunda fila de 3 botones -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/four"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/five"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/six"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <!-- Tercera fila de 3 botones -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/seven"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/eight"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/nine"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:textColor="#192a32"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="188dp"
+        android:layout_height="348dp"
+        android:background="#373737"
+        android:orientation="vertical"
+        android:padding="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <TextView
+            android:id="@+id/difficultyText"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="183dp"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Difficulty: Easy"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <Button
+            android:id="@+id/newGame"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="#aabbca"
+            android:drawableStart="@drawable/icons_restart"
+            android:fontFamily="sans-serif-condensed"
+            android:padding="12dp"
+            android:text="Restart"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/difficulty"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="#aabbca"
+            android:drawableStart="@drawable/icons_level"
+            android:fontFamily="sans-serif-condensed"
+            android:padding="12dp"
+            android:text="Level"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/quit"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="#aabbca"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Quit"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:layout_marginVertical="10dp"
+            android:drawableStart="@drawable/icons_exit"/>
+
+        <TextView
+            android:id="@+id/turn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
