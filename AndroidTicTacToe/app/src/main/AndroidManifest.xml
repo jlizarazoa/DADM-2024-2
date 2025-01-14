@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AndroidTicTacToe"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".PlayerSetupActivity"
             android:exported="true"
             android:label="Tic Tac Toe"
             android:configChanges="orientation|screenSize"
@@ -24,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GameListActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

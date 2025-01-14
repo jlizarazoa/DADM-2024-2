@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
@@ -116,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficultyText">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <!-- Primera fila de 3 botones -->
         <TableRow
@@ -268,34 +268,6 @@
         app:layout_constraintTop_toBottomOf="@+id/turn">
 
         <Button
-            android:id="@+id/newGame"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#aabbca"
-            android:fontFamily="sans-serif-condensed"
-            android:padding="12dp"
-            android:text="Restart"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:drawableStart="@drawable/icons_restart"/>
-
-        <Button
-            android:id="@+id/difficulty"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#aabbca"
-            android:fontFamily="sans-serif-condensed"
-            android:padding="12dp"
-            android:text="Level"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:drawableStart="@drawable/icons_level"/>
-
-        <Button
             android:id="@+id/quit"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -309,23 +281,5 @@
             android:padding="12dp"
             android:drawableStart="@drawable/icons_exit"/>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/difficultyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="171dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="183dp"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="Difficulty: Easy"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

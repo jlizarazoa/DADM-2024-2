@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clasificacion_opciones">
+        <item>All</item>
+        <item>Consulting</item>
+        <item>custom_development</item>
+        <item>software_factory</item>
+        <item>cloud_services</item>
+        <item>data_analytics</item>
+        <item>mobile_app_development</item>
+        <item>web_development</item>
+        <item>cybersecurity</item>
+        <item>e_commerce</item>
+        <item>artificial_intelligence</item>
+        <item>blockchain</item>
+        <item>internet_of_things</item>
+        <item>digital_marketing</item>
+        <item>game_development</item>
+        <item>machine_learning</item>
+        <item>business_intelligence</item>
+        <item>system_integration</item>
+        <item>automation_solutions</item>
+        <item>it_support</item>
+        <item>enterprise_solutions</item>
+        <item>big_data</item>
+        <item>virtual_reality</item>
+        <item>augmented_reality</item>
+        <item>health_tech</item>
+        <item>fintech</item>
+        <item>education_tech</item>
+        <item>software_testing</item>
+        <item>crm_development</item>
+        <item>erp_solutions</item>
+        <item>logistics_tech</item>
+        <item>networking_solutions</item>
+        <item>cloud_migration</item>
+    </string-array>
+</resources>
