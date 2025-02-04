@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp"
+    android:background="@android:color/white"
+    android:elevation="3dp"
+    android:layout_margin="12dp">
+
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre del lugar"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvCodigo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Código DANE"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvMunicipio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Municipio / Ciudad"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvPap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PAP"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descripción"
+        android:textSize="14sp" />
+
+</LinearLayout>
