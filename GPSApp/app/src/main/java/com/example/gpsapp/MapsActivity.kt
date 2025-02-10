@@ -197,7 +197,7 @@ class MapsActivity : AppCompatActivity(), GoogleMap.OnMyLocationButtonClickListe
         val location = "$lat,$lng"
         val types = selectedCategories.joinToString("|")
 
-        val apiKey = "AIzaSyA5mCPCwsujO8HfwwMwuZokSBPkpeY2W1Q"
+        val apiKey = ""
 
         RetrofitInstance.api.getNearbyPlaces(
             location = location,
